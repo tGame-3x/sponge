@@ -1,7 +1,7 @@
 Lab 1 Writeup
 =============
 
-My name: [jwj]
+My name: [jwj.ilty]
 
 My SUNet ID: [your sunetid here]
 
