@@ -14,9 +14,13 @@
 //! the acknowledgment number and window size to advertise back to the
 //! remote TCPSender.
 class TCPReceiver {
+  private:
     //! Our data structure for re-assembling bytes.
     StreamReassembler _reassembler;
-
+    bool _syn_flag = false;
+    bool _fin_flag = false;
+    size_t _base = 0;  // when unintital, equal zero for ackno special judge
+    size_t _isn = 0;
     //! The maximum number of bytes we'll store.
     size_t _capacity;
 
@@ -54,7 +58,8 @@ class TCPReceiver {
     size_t unassembled_bytes() const { return _reassembler.unassembled_bytes(); }
 
     //! \brief handle an inbound segment
-    void segment_received(const TCPSegment &seg);
+    //! \returns `true` if any part of the segment was inside the window
+    bool segment_received(const TCPSegment &seg);
 
     //! \name "Output" interface for the reader
     //!@{
